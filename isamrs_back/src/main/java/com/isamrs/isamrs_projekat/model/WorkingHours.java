@@ -1,7 +1,5 @@
 package com.isamrs.isamrs_projekat.model;
 
-import org.hibernate.jdbc.Work;
-
 import javax.persistence.*;
 import java.time.LocalTime;
 

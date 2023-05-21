@@ -1,6 +1,7 @@
 package com.isamrs.isamrs_projekat.model;
 
-import javax.persistence.*;
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
 import java.sql.Timestamp;
 import java.util.Set;
 

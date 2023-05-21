@@ -1,10 +1,5 @@
 package com.isamrs.isamrs_projekat.service;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.regex.Pattern;
-
 import com.isamrs.isamrs_projekat.dto.RegisterDataDTO;
 import com.isamrs.isamrs_projekat.model.Authority;
 import com.isamrs.isamrs_projekat.model.RegisteredUser;
@@ -13,6 +8,11 @@ import com.isamrs.isamrs_projekat.repository.RegisteredUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.regex.Pattern;
 
 
 

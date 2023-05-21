@@ -1,5 +1,6 @@
 package com.isamrs.isamrs_projekat.service;
 
+import com.isamrs.isamrs_projekat.model.User;
 import com.isamrs.isamrs_projekat.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -11,7 +12,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import com.isamrs.isamrs_projekat.model.User;
 
 // Ovaj servis je namerno izdvojen kao poseban u ovom primeru.
 // U opstem slucaju UserServiceImpl klasa bi mogla da implementira UserDetailService interfejs.

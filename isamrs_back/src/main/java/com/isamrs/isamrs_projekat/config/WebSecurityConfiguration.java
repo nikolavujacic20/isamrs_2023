@@ -1,5 +1,9 @@
 package com.isamrs.isamrs_projekat.config;
 
+import com.isamrs.isamrs_projekat.security.TokenUtils;
+import com.isamrs.isamrs_projekat.security.auth.RestAuthenticationEntryPoint;
+import com.isamrs.isamrs_projekat.security.auth.TokenAuthenticationFilter;
+import com.isamrs.isamrs_projekat.service.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,11 +18,6 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
-
-import com.isamrs.isamrs_projekat.security.TokenUtils;
-import com.isamrs.isamrs_projekat.security.auth.RestAuthenticationEntryPoint;
-import com.isamrs.isamrs_projekat.security.auth.TokenAuthenticationFilter;
-import com.isamrs.isamrs_projekat.service.CustomUserDetailsService;
 
 @Configuration
 // Ukljucivanje podrske za anotacije "@Pre*" i "@Post*" koje ce aktivirati autorizacione provere za svaki pristup metodi

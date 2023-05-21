@@ -1,7 +1,4 @@
 package com.isamrs.isamrs_projekat.service;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
 
 import com.isamrs.isamrs_projekat.model.Admin;
 import com.isamrs.isamrs_projekat.model.Authority;
@@ -10,6 +7,10 @@ import com.isamrs.isamrs_projekat.repository.AuthorityRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @Service
 public class AdminService {

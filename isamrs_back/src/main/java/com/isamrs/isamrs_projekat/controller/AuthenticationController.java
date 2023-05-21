@@ -1,6 +1,4 @@
 package com.isamrs.isamrs_projekat.controller;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import com.isamrs.isamrs_projekat.dto.RegisterDataDTO;
 import com.isamrs.isamrs_projekat.dto.UserLoginDTO;
@@ -22,6 +20,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 
 //Kontroler zaduzen za autentifikaciju korisnika
