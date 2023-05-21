@@ -2,7 +2,9 @@ package com.isamrs.isamrs_projekat.controller;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.isamrs.isamrs_projekat.dto.RegisterDataDTO;
 import com.isamrs.isamrs_projekat.dto.UserLoginDTO;
+import com.isamrs.isamrs_projekat.dto.UserTokenStateDTO;
 import com.isamrs.isamrs_projekat.model.User;
 import com.isamrs.isamrs_projekat.repository.UserRepository;
 import com.isamrs.isamrs_projekat.security.TokenUtils;
