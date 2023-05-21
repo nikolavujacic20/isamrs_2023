@@ -21,6 +21,10 @@ public class Payment {
     @OneToMany(mappedBy = "payment")
     private List<Route> userRoutes;
 
+    @ManyToOne
+    @JoinColumn(name = "ride_id")
+    private Ride ride;
+
     private LocalDateTime paymentDate;
     private Double totalPaymentCost;
 
@@ -36,6 +40,26 @@ public class Payment {
         this.userRoutes = userRoutes;
         this.paymentDate = paymentDate;
         this.totalPaymentCost = totalPaymentCost;
+    }
+
+    public Payment(Long id, PaymentType paymentType, User payingUser,
+                   List<Route> userRoutes, Ride ride, LocalDateTime paymentDate,
+                   Double totalPaymentCost) {
+        this.id = id;
+        this.paymentType = paymentType;
+        this.payingUser = payingUser;
+        this.userRoutes = userRoutes;
+        this.ride = ride;
+        this.paymentDate = paymentDate;
+        this.totalPaymentCost = totalPaymentCost;
+    }
+
+    public Ride getRide() {
+        return ride;
+    }
+
+    public void setRide(Ride ride) {
+        this.ride = ride;
     }
 
     public Long getId() {

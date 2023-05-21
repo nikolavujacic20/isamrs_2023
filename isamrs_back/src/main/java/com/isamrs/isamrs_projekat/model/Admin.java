@@ -5,7 +5,6 @@ import java.sql.Timestamp;
 import java.util.Set;
 
 @Entity
-@Table(name = "admins")
 @DiscriminatorValue("ADMIN")
 public class Admin extends User {
 

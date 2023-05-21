@@ -14,6 +14,9 @@ public class Ride {
     private LocalDateTime endTime;
     private Double totalCost;
 
+    @OneToMany(mappedBy = "ride")
+    private List<Payment> payments;
+
     @ManyToOne
     @JoinColumn(name = "driver_id")
     private Driver driver;
@@ -48,9 +51,6 @@ public class Ride {
     @ManyToOne
     @JoinColumn(name = "vehicle_type_id")
     private VehicleType vehicleType;
-
-    @OneToMany(mappedBy = "ride")
-    private List<Payment> payments;
 
     private Boolean splitFare;
 
