@@ -16,12 +16,12 @@ public interface UserRepository extends JpaRepository<User, Long>{
 
     User findByEmail(String email);
 
-    List<User> findAllByActive(boolean b);
+    List<User> findAllByIsActive(boolean b);
 
-    Optional<User> findByIdAndActive(Long id, boolean b);
+    Optional<User> findByIdAndIsActive(Long id, boolean b);
 
-    User findByEmailAndActive(String email, boolean b);
+    User findByEmailAndIsActive(String email, boolean b);
 
-    Page<User> findByActive(Pageable pageable, boolean b);
+    Page<User> findByIsActive(Pageable pageable, boolean b);
 
 }

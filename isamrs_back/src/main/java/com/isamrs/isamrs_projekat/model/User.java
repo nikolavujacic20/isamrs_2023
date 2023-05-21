@@ -64,10 +64,9 @@ public class User implements UserDetails{
         this.password = password;
     }
 
-    public User(Long id, String firstName, String lastName, String email, String password, Boolean active,
+    public User(String firstName, String lastName, String email, String password, Boolean active,
                 Boolean verified, Set<Authority> authority) {
         super();
-        this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -77,10 +76,9 @@ public class User implements UserDetails{
         this.authority = authority;
     }
 
-    public User(Long id, String firstName, String lastName, byte[] profilePicture, String phoneNumber,
+    public User(String firstName, String lastName, byte[] profilePicture, String phoneNumber,
                 String address, String email, String password, Boolean isActive, Boolean isBlocked,
                 Set<Authority> authority, Timestamp lastPasswordResetDate) {
-        this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.profilePicture = profilePicture;

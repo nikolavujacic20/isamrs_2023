@@ -42,8 +42,8 @@ public class Driver extends User {
         this.vehicle = vehicle;
     }
 
-    public Driver(Long id, String firstName, String lastName, String email, String password, Boolean active, Boolean verified, Set<Authority> authority, byte[] documents, List<Ride> rides, WorkingHours workingHours, Vehicle vehicle) {
-        super(id, firstName, lastName, email, password, active, verified, authority);
+    public Driver(String firstName, String lastName, String email, String password, Boolean active, Boolean verified, Set<Authority> authority, byte[] documents, List<Ride> rides, WorkingHours workingHours, Vehicle vehicle) {
+        super(firstName, lastName, email, password, active, verified, authority);
         this.documents = documents;
         this.rides = rides;
         this.workingHours = workingHours;
@@ -51,7 +51,7 @@ public class Driver extends User {
     }
 
     public Driver(Long id, String firstName, String lastName, byte[] profilePicture, String phoneNumber, String address, String email, String password, Boolean isActive, Boolean isBlocked, Set<Authority> authority, Timestamp lastPasswordResetDate, byte[] documents, List<Ride> rides, WorkingHours workingHours, Vehicle vehicle) {
-        super(id, firstName, lastName, profilePicture, phoneNumber, address, email, password, isActive, isBlocked, authority, lastPasswordResetDate);
+        super(firstName, lastName, profilePicture, phoneNumber, address, email, password, isActive, isBlocked, authority, lastPasswordResetDate);
         this.documents = documents;
         this.rides = rides;
         this.workingHours = workingHours;
@@ -79,15 +79,15 @@ public class Driver extends User {
         this.vehicle = vehicle;
     }
 
-    public Driver(Long id, String firstName, String lastName, String email, String password, Boolean active, Boolean verified, Set<Authority> authority, byte[] documents, List<Ride> rides, Vehicle vehicle) {
-        super(id, firstName, lastName, email, password, active, verified, authority);
+    public Driver(String firstName, String lastName, String email, String password, Boolean active, Boolean verified, Set<Authority> authority, byte[] documents, List<Ride> rides, Vehicle vehicle) {
+        super(firstName, lastName, email, password, active, verified, authority);
         this.documents = documents;
         this.rides = rides;
         this.vehicle = vehicle;
     }
 
-    public Driver(Long id, String firstName, String lastName, byte[] profilePicture, String phoneNumber, String address, String email, String password, Boolean isActive, Boolean isBlocked, Set<Authority> authority, Timestamp lastPasswordResetDate, byte[] documents, List<Ride> rides, Vehicle vehicle) {
-        super(id, firstName, lastName, profilePicture, phoneNumber, address, email, password, isActive, isBlocked, authority, lastPasswordResetDate);
+    public Driver(String firstName, String lastName, byte[] profilePicture, String phoneNumber, String address, String email, String password, Boolean isActive, Boolean isBlocked, Set<Authority> authority, Timestamp lastPasswordResetDate, byte[] documents, List<Ride> rides, Vehicle vehicle) {
+        super(firstName, lastName, profilePicture, phoneNumber, address, email, password, isActive, isBlocked, authority, lastPasswordResetDate);
         this.documents = documents;
         this.rides = rides;
         this.vehicle = vehicle;

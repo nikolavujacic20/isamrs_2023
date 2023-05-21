@@ -35,7 +35,7 @@ public class RegisteredUserService {
     }
 
     public RegisteredUser findOne(Long id) {
-        return repository.findByIdAndActive(id, true).orElse(null);
+        return repository.findByIdAndIsActive(id, true).orElse(null);
     }
 
     public RegisteredUser findByEmail(String username) {

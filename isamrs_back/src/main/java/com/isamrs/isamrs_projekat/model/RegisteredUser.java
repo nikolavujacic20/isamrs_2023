@@ -1,10 +1,7 @@
 package com.isamrs.isamrs_projekat.model;
 
-import javax.persistence.CascadeType;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.OneToMany;
 import java.sql.Timestamp;
 import java.util.Set;
 
@@ -20,12 +17,12 @@ public class RegisteredUser  extends User {
         super(email, password);
     }
 
-    public RegisteredUser(Long id, String firstName, String lastName, String email, String password, Boolean active, Boolean verified, Set<Authority> authority) {
-        super(id, firstName, lastName, email, password, active, verified, authority);
+    public RegisteredUser(String firstName, String lastName, String email, String password, Boolean active, Boolean verified, Set<Authority> authority) {
+        super(firstName, lastName, email, password, active, verified, authority);
     }
 
-    public RegisteredUser(Long id, String firstName, String lastName, byte[] profilePicture, String phoneNumber, String address, String email, String password, Boolean isActive, Boolean isBlocked, Set<Authority> authority, Timestamp lastPasswordResetDate) {
-        super(id, firstName, lastName, profilePicture, phoneNumber, address, email, password, isActive, isBlocked, authority, lastPasswordResetDate);
+    public RegisteredUser(String firstName, String lastName, byte[] profilePicture, String phoneNumber, String address, String email, String password, Boolean isActive, Boolean isBlocked, Set<Authority> authority, Timestamp lastPasswordResetDate) {
+        super(firstName, lastName, profilePicture, phoneNumber, address, email, password, isActive, isBlocked, authority, lastPasswordResetDate);
     }
 
     public RegisteredUser(String email2, String password2, String firstName2, String lastName2) {
