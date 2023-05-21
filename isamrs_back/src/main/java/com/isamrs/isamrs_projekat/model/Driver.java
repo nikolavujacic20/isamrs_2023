@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Set;
 
 @Entity
-@Table(name = "drivers")
 @DiscriminatorValue("DRIVER")
 public class Driver extends User {
 
@@ -17,12 +16,56 @@ public class Driver extends User {
     @OneToMany(mappedBy = "driver")
     protected List<Ride> rides;
 
+    @OneToOne
+    @JoinColumn(name = "working_hours_id")
+    private WorkingHours workingHours;
+
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "vehicle_id", referencedColumnName = "id")
     protected Vehicle vehicle;
 
     public Driver(){
     }
+
+    public Driver(byte[] documents, List<Ride> rides, WorkingHours workingHours, Vehicle vehicle) {
+        this.documents = documents;
+        this.rides = rides;
+        this.workingHours = workingHours;
+        this.vehicle = vehicle;
+    }
+
+    public Driver(String email, String password, byte[] documents, List<Ride> rides, WorkingHours workingHours, Vehicle vehicle) {
+        super(email, password);
+        this.documents = documents;
+        this.rides = rides;
+        this.workingHours = workingHours;
+        this.vehicle = vehicle;
+    }
+
+    public Driver(Long id, String firstName, String lastName, String email, String password, Boolean active, Boolean verified, Set<Authority> authority, byte[] documents, List<Ride> rides, WorkingHours workingHours, Vehicle vehicle) {
+        super(id, firstName, lastName, email, password, active, verified, authority);
+        this.documents = documents;
+        this.rides = rides;
+        this.workingHours = workingHours;
+        this.vehicle = vehicle;
+    }
+
+    public Driver(Long id, String firstName, String lastName, byte[] profilePicture, String phoneNumber, String address, String email, String password, Boolean isActive, Boolean isBlocked, Set<Authority> authority, Timestamp lastPasswordResetDate, byte[] documents, List<Ride> rides, WorkingHours workingHours, Vehicle vehicle) {
+        super(id, firstName, lastName, profilePicture, phoneNumber, address, email, password, isActive, isBlocked, authority, lastPasswordResetDate);
+        this.documents = documents;
+        this.rides = rides;
+        this.workingHours = workingHours;
+        this.vehicle = vehicle;
+    }
+
+    public Driver(String email2, String password2, String firstName2, String lastName2, byte[] documents, List<Ride> rides, WorkingHours workingHours, Vehicle vehicle) {
+        super(email2, password2, firstName2, lastName2);
+        this.documents = documents;
+        this.rides = rides;
+        this.workingHours = workingHours;
+        this.vehicle = vehicle;
+    }
+
     public Driver(byte[] documents, List<Ride> rides, Vehicle vehicle) {
         this.documents = documents;
         this.rides = rides;
@@ -79,5 +122,13 @@ public class Driver extends User {
 
     public void setVehicle(Vehicle vehicle) {
         this.vehicle = vehicle;
+    }
+
+    public WorkingHours getWorkingHours() {
+        return workingHours;
+    }
+
+    public void setWorkingHours(WorkingHours workingHours) {
+        this.workingHours = workingHours;
     }
 }

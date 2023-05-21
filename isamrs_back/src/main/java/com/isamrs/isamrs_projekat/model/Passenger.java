@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Set;
 
 @Entity
-@Table(name = "passengers")
 @DiscriminatorValue("PASSENGER")
 public class Passenger extends User {
     @ManyToMany(mappedBy = "passengers")

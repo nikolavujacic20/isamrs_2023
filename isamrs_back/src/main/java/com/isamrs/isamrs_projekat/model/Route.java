@@ -23,10 +23,30 @@ public class Route {
     private Double cost;
 
     @ManyToOne
+    @JoinColumn(name = "ride_id")
+    private Ride ride;
+
+    @ManyToOne
     @JoinColumn(name = "payment_id", nullable = true)
     private Payment payment;
 
     public Route() {
+    }
+
+    public Route(Long id, LocalDateTime startTime, LocalDateTime endTime,
+                 Location startLocation, Location endLocation, Double distance,
+                 LocalDateTime estimatedTime, Double cost, Ride ride, Payment payment)
+    {
+        this.id = id;
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.startLocation = startLocation;
+        this.endLocation = endLocation;
+        this.distance = distance;
+        this.estimatedTime = estimatedTime;
+        this.cost = cost;
+        this.ride = ride;
+        this.payment = payment;
     }
 
     public Route(Long id, LocalDateTime startTime, LocalDateTime endTime, Location startLocation,
@@ -109,6 +129,14 @@ public class Route {
 
     public Payment getPayment() {
         return payment;
+    }
+
+    public Ride getRide() {
+        return ride;
+    }
+
+    public void setRide(Ride ride) {
+        this.ride = ride;
     }
 
     public void setPayment(Payment payment) {
