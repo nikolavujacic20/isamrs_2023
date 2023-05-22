@@ -1,0 +1,35 @@
+/* CSS for the map container */
+.map-container {
+  height: 500px;
+  width: 100%;
+}
+
+/* CSS for the parent container of the map */
+.parent-container {
+  position: relative;
+}
+
+/* CSS to ensure the map takes up the full width and height of its container */
+.map {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+/* Map container */
+.parent-container {
+  position: relative;
+  height: 200px;
+  width: 10%;
+}
+
+/* Map element */
+.map {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
