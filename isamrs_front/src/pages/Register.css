@@ -1,0 +1,79 @@
+.register-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  
+  .register-content {
+    width: 560px;
+    height: 560px;
+    padding: 30px;
+    background-color: #f8f8f8;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .register-title {
+    font-size: 20px;
+    margin-bottom: 10px;
+    text-align: center;
+  }
+  
+  .form-group {
+    width: 100%;
+    margin-bottom: 15px;
+    text-align: center;
+  }
+  
+  .form-group label {
+    display: block;
+    font-size: 14px;
+    margin-bottom: 5px;
+  }
+  
+  input[type='email'],
+  input[type='password'],
+  input[type='text'] {
+    width: 100%;
+    padding: 8px;
+    font-size: 12px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 5px;
+  }
+  
+  .btn-primary {
+    background-color: #dc1118;
+    color: #fff;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+  }
+  
+  .btn-primary:hover {
+    background-color: #dc1118;
+  }
+  
+  .error-message {
+    color: red;
+    font-size: 10px;
+    margin-top: 2px;
+    text-align: center;
+  }
+  
+  .register-info {
+    font-size: 12px;
+    text-align: center;
+  }
+  
+  .register-info a {
+    color: #dc1118;
+    text-decoration: none;
+  }

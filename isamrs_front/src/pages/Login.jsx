@@ -11,6 +11,13 @@ function Login({ onRoleUpdate }) {
   const [password, setPassword] = useState('');
   
 
+
+  const goRegister = () =>{
+
+    navigate('/register');
+
+
+  }
   const handleSubmit = async (e) => {
     e.preventDefault();
    
@@ -74,7 +81,7 @@ function Login({ onRoleUpdate }) {
             </button>
           </div>
           <p className="login-info">
-            Don't have an account? <a href="/signup">Sign up</a>
+            Don't have an account? <a onClick ={goRegister} href="/signup">Sign up</a>
           </p>
         </form>
       </div>

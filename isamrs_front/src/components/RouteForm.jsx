@@ -5,9 +5,40 @@ const RouteForm = ({ onRouteSubmit }) => {
   const [start, setStart] = useState('');
   const [end, setEnd] = useState('');
 
-  const handleSubmit = (e) => {
+  const handleStartChange = (e) => {
+    setStart(e.target.value);
+  };
+
+  const handleEndChange = (e) => {
+    setEnd(e.target.value);
+  };
+
+  const handleGeocode = async (address) => {
+    try {
+      const response = await fetch(
+        `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(address)}&format=json`
+      );
+      const data = await response.json();
+
+      if (data && data.length > 0) {
+        const { lat, lon } = data[0];
+        return [parseFloat(lat), parseFloat(lon)];
+      } else {
+        return null;
+      }
+    } catch (error) {
+      console.error('Error geocoding address:', error);
+      return null;
+    }
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    onRouteSubmit(start, end);
+
+    const startCoordinates = await handleGeocode(start);
+    const endCoordinates = await handleGeocode(end);
+
+    onRouteSubmit(startCoordinates, endCoordinates);
   };
 
   return (
@@ -18,7 +49,7 @@ const RouteForm = ({ onRouteSubmit }) => {
           type="text"
           id="start"
           value={start}
-          onChange={(e) => setStart(e.target.value)}
+          onChange={handleStartChange}
           required
         />
       </div>
@@ -28,7 +59,7 @@ const RouteForm = ({ onRouteSubmit }) => {
           type="text"
           id="end"
           value={end}
-          onChange={(e) => setEnd(e.target.value)}
+          onChange={handleEndChange}
           required
         />
       </div>

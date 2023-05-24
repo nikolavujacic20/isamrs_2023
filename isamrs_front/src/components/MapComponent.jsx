@@ -3,6 +3,7 @@ import "leaflet-routing-machine";
 import "leaflet-routing-machine/dist/leaflet-routing-machine.css";
 import React, { useEffect, useState, useRef } from "react";
 import { useMap } from "react-leaflet";
+import { Marker } from "react-leaflet";
 
 const MapComponent = ({ startLocation, endLocation, markerIcon }) => {
   const map = useMap();
@@ -27,32 +28,37 @@ const MapComponent = ({ startLocation, endLocation, markerIcon }) => {
         map.removeControl(routingControlRef.current);
       }
 
-      const control = L.Routing.control({
-        waypoints: [
-          L.latLng(startLocation[0], startLocation[1]),
-          L.latLng(endLocation[0], endLocation[1])
-        ],
-        createMarker: (i, wp, nWps) => {
-          return L.marker(wp.latLng, { icon: markerIcon, draggable: true });
-        },
-        routeWhileDragging: true,
-      })
-        .on("routesfound", (e) => {
-          const routes = e.routes;
-          if (routes && routes.length > 0) {
-            const route = routes[0];
-            setDistance(route.summary.totalDistance / 1000);
-          }
+      if (startLocation && endLocation) {
+        const control = L.Routing.control({
+          waypoints: [
+            L.latLng(startLocation[0], startLocation[1]),
+            L.latLng(endLocation[0], endLocation[1])
+          ],
+          createMarker: (i, wp, nWps) => {
+            return L.marker(wp.latLng, { icon: markerIcon, draggable: true });
+          },
+          routeWhileDragging: true,
         })
-        .addTo(map);
+          .on("routesfound", (e) => {
+            const routes = e.routes;
+            if (routes && routes.length > 0) {
+              const route = routes[0];
+              setDistance(route.summary.totalDistance / 1000);
+            }
+          })
+          .addTo(map);
 
-      routingControlRef.current = control;
+        routingControlRef.current = control;
+      }
     }
   }, [map, startLocation, endLocation, markerIcon]);
 
   return (
     <div>
       {distance !== null && <p>Distance: {distance.toFixed(2)} km</p>}
+      {startLocation && endLocation && (
+        <Marker position={startLocation} icon={markerIcon} />
+      )}
     </div>
   );
 };

@@ -14,31 +14,42 @@ const Navbar = ({ role, onRoleUpdate }) => {
   return (
     <nav className="navbar">
       <div className="navbar-links">
-       
-        <Link to="/" className="navbar-link"><b>Home</b></Link>
-        {isUserLoggedIn && (
+        <Link to="/" className="navbar-link">
+          <b>Home</b>
+        </Link>
+      </div>
+      <div className="navbar-links navbar-links-right">
+        {!isUserLoggedIn && (
           <>
-            {role === 'admin' && (
-              <Link to="/users" className="navbar-link"><b>Users</b></Link>
-            )}
-            <Link to="/tickets" className="navbar-link"><b>Tickets</b></Link>
+            <Link to="/register" className="navbar-link">
+              <b>Register</b>
+            </Link>
+            <Link to="/login" className="navbar-link">
+              <b>Login</b>
+            </Link>
           </>
         )}
-      </div>
-      <div className="navbar-logout">
-        {isUserLoggedIn ? (
+        {isUserLoggedIn && role === 'admin' && (
+          <Link to="/users" className="navbar-link">
+            <b>Users</b>
+          </Link>
+        )}
+        {isUserLoggedIn && (
+          <Link to="/tickets" className="navbar-link">
+            <b>Tickets</b>
+          </Link>
+        )}
+        {isUserLoggedIn && (
+          <Link to="/profile">
+            <img src={profile} alt="Profile" style={{ width: 50, height: 50 }} />
+          </Link>
+        )}
+        {isUserLoggedIn && (
           <span className="navbar-link" onClick={handleLogoutClick}>
             Logout
           </span>
-        ) : (
-          <Link to="/login" className="navbar-link"><b>Login</b></Link>
         )}
       </div>
-      {isUserLoggedIn && (
-        <Link to="/profile">
-          <img src={profile} alt="Profile" style={{ width: 50, height: 50 }} />
-        </Link>
-      )}
     </nav>
   );
 };

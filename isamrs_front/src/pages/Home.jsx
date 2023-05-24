@@ -4,21 +4,30 @@ import Map from '../components/Map';
 import RouteForm from '../components/RouteForm';
 
 const Home = () => {
-  const [startLocation, setStartLocation] = useState([]);
-  const [endLocation, setEndLocation] = useState([]);
+  const [startLocation, setStartLocation] = useState([null]);
+  const [endLocation, setEndLocation] = useState([null]);
 
-  const handleRouteSubmit = (start, end) => {
-    setStartLocation(start);
-    setEndLocation(end);
+
+  const [routeCoordinates, setRouteCoordinates] = useState(null);
+
+  const handleRouteSubmit = (startCoordinates, endCoordinates) => {
+
+    setStartLocation(startCoordinates);
+    setEndLocation(endCoordinates);
+
+    console.log(startLocation+'OVO JE START');
+    console.log(endLocation+'OVO JE END');
   };
+
 
   return (
     <div className="cinema-homepage">
+
       <RouteForm onRouteSubmit={handleRouteSubmit} />
+      {startLocation && endLocation && (
       <Map startLocation={startLocation} endLocation={endLocation} />
-      <p>
-        <strong>Current price of the selected drive is: {localStorage.getItem('distanca')}</strong>
-      </p>
+    )}
+     
     </div>
   );
 };

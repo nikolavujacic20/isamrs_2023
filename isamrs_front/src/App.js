@@ -10,6 +10,7 @@ import Login from './pages/Login.jsx';
 import Profile from './pages/Profile';
 import Footer from './components/Footer.jsx';
 import Users from './pages/Users';
+import Register from './pages/Register';
 import profilna from './images/profile.png';
 
 
@@ -41,11 +42,11 @@ function App() {
 
       <Routes>
         <Route exact path="/" element={<Home  />} />
-        <Route path="/login" element={<Login onRoleUpdate={handleRoleUpdate} />} />
-
-        <Route path="/profile" element={<Profile user={user} />} />
+        <Route exact path="/register" element={<Register  />} />
         <Route path="/users" element={<Users />} />
         <Route path="/tickets" element={<Tickets />} />
+        <Route path="/login" element={<Login onRoleUpdate={handleRoleUpdate} />} />
+        <Route path="/profile" element={<Profile user={user} />} />
       </Routes>
 
       <Footer />
