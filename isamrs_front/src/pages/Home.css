@@ -1,170 +1,237 @@
 .cinema-homepage {
-    text-align: center;
-    padding: 20px;
-  }
-  
-  h1 {
-    font-size: 28px;
-    color: #333;
-  }
-  
-  p {
-    font-size: 18px;
-    color: #666;
-  }
-  
-  ul {
-    list-style-type: none;
-    padding: 0;
-    margin: 20px 0;
-    display: flex;
-    justify-content: center;
-  }
-  
-  li {
-    margin: 0 10px;
-    font-size: 16px;
-    color: #333;
-  }
+  text-align: center;
+  padding: 20px;
+}
 
-  .modal-title {
-    text-align: center;
-    font-size: 24px;
-    margin-bottom: 16px;
-  }
-  
-  .modal-content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  
-  .number-fields {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .field {
-    display: flex;
-    align-items: center;
-    margin-bottom: 10px;
-  }
-  
-  .field label {
-    flex-basis: 100px; /* Adjust the width of the labels as needed */
-    margin-right: 10px;
-  }
-  
-  .field input {
-    flex: 1;
-  }
-  
-  
-  
-  
-  
-  
-  
-  
-  .close-button {
-    padding: 8px 16px;
-    background-color: #ccc;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-  
-  .close-button:hover {
-    background-color: #aaa;
-  }
+h1 {
+  font-size: 28px;
+  color: #333;
+}
 
-  .custom-modal {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: white;
-    width: 500px;
-    height: 400px;
-    border-radius: 8px;
-    padding: 20px;
-    outline: none;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  
-  .custom-modal-overlay {
-    background-color: rgba(0, 0, 0, 0.6);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  .modal-title {
-    text-align: center;
-  }
-  
-  .number-fields {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
-  
-  .field label {
-    display: block;
-  }
-  
-  .field input {
-    width: 100%;
-  }
-  
-  .modal-actions {
-    display: flex;
-    justify-content: flex-end;
-    gap: 10px;
-    margin-top: 20px;
-  }
-  
-  .modal-actions button {
-    background-color: green;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-  
-  .close-button {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    background-color: transparent;
-    border: none;
-    cursor: pointer;
-  }
+p {
+  font-size: 18px;
+  color: #666;
+}
 
-  .button-container {
-    display: flex;
-    justify-content: flex-end;
-    gap: 10px;
-    margin-top: 20px;
-  }
-  
-  .buy-button {
-    background-color: green;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-  
-  .close-button-red {
-    background-color: red;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 4px;
-    cursor: pointer;
-  }
+ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 20px 0;
+  display: flex;
+  justify-content: center;
+}
+
+li {
+  margin: 0 10px;
+  font-size: 16px;
+  color: #333;
+}
+
+.modal-title {
+  text-align: center;
+  font-size: 24px;
+  margin-bottom: 16px;
+}
+
+.modal-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.number-fields {
+  display: flex;
+  flex-direction: column;
+}
+
+.field {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.field label {
+  flex-basis: 100px; /* Adjust the width of the labels as needed */
+  margin-right: 10px;
+}
+
+.field input {
+  flex: 1;
+}
+
+
+
+
+
+
+
+
+.close-button {
+  padding: 8px 16px;
+  background-color: #ccc;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.close-button:hover {
+  background-color: #aaa;
+}
+
+.custom-modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  width: 500px;
+  height: 400px;
+  border-radius: 8px;
+  padding: 20px;
+  outline: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.custom-modal-overlay {
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-title {
+  text-align: center;
+}
+
+.number-fields {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.field label {
+  display: block;
+}
+
+.field input {
+  width: 100%;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.modal-actions button {
+  background-color: green;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.close-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.button-container {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.buy-button {
+  background-color: green;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.close-button-red {
+  background-color: red;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.modal-content {
+  background-color: white;
+  width: 300px;
+  height: 300px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+}
+
+.modal-container {
+  text-align: center;
+}
+
+.modal-title {
+  font-size: 24px;
+}
+
+.modal-amount {
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.modal-message {
+  font-size: 18px;
+}
+
+.modal-buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.modal-buttons button {
+  margin-right: 10px;
+  padding: 8px 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  border: none;
+  outline: none;
+  color: white;
+}
+
+.modal-cancel-button {
+  background-color: red;
+  border-radius: 5px;
+}
+
+.modal-pay-button {
+  background-color: green;
+  border-radius: 5px;
+}

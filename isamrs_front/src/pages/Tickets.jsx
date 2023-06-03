@@ -31,8 +31,9 @@ const Tickets = () => {
           <thead>
             <tr>
               <th>ID</th>
-              <th>Movie</th>
+              <th>Drive</th>
               <th>Price</th>
+              <th>Time</th>
             </tr>
           </thead>
           <tbody>

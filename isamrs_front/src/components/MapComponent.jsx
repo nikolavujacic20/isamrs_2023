@@ -5,9 +5,11 @@ import React, { useEffect, useState, useRef } from "react";
 import { useMap } from "react-leaflet";
 import { Marker } from "react-leaflet";
 
-const MapComponent = ({ startLocation, endLocation, markerIcon }) => {
+const MapComponent = ({ startLocation, endLocation, markerIcon, onRouteInfoUpdate }) => {
   const map = useMap();
   const [distance, setDistance] = useState(null);
+  const [duration, setDuration] = useState(null);
+
   const routingControlRef = useRef(null);
   const prevStartLocation = useRef(null);
   const prevEndLocation = useRef(null);
@@ -43,7 +45,11 @@ const MapComponent = ({ startLocation, endLocation, markerIcon }) => {
             const routes = e.routes;
             if (routes && routes.length > 0) {
               const route = routes[0];
-              setDistance(route.summary.totalDistance / 1000);
+              const newDistance = route.summary.totalDistance / 1000;
+              const newDuration = route.summary.totalTime / 60;
+              setDistance(newDistance);
+              setDuration(newDuration);
+              onRouteInfoUpdate(newDistance, newDuration);
             }
           })
           .addTo(map);
@@ -51,11 +57,13 @@ const MapComponent = ({ startLocation, endLocation, markerIcon }) => {
         routingControlRef.current = control;
       }
     }
-  }, [map, startLocation, endLocation, markerIcon]);
+  }, [map, startLocation, endLocation, markerIcon, onRouteInfoUpdate]);
 
   return (
     <div>
-      {distance !== null && <p>Distance: {distance.toFixed(2)} km</p>}
+      {/* Render distance and duration if available */}
+      {distance && <p>Distance: {distance.toFixed(2)} km</p>}
+      {duration && <p>Duration: {duration.toFixed(2)} minutes</p>}
       {startLocation && endLocation && (
         <Marker position={startLocation} icon={markerIcon} />
       )}

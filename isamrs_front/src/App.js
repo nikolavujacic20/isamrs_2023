@@ -18,7 +18,7 @@ import profilna from './images/profile.png';
 
 function App() {
 
-  const [role, setRole] = useState(null);
+  const [role, setRole] = useState('driver');
 
   const handleRoleUpdate = (newRole) => {
     setRole(newRole);

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './RouteForm.css';
 
-const RouteForm = ({ onRouteSubmit }) => {
+const RouteForm = ({ onRouteSubmit,openBill }) => {
   const [start, setStart] = useState('');
   const [end, setEnd] = useState('');
 
@@ -37,8 +37,9 @@ const RouteForm = ({ onRouteSubmit }) => {
 
     const startCoordinates = await handleGeocode(start);
     const endCoordinates = await handleGeocode(end);
-
+  
     onRouteSubmit(startCoordinates, endCoordinates);
+    
   };
 
   return (
@@ -63,7 +64,8 @@ const RouteForm = ({ onRouteSubmit }) => {
           required
         />
       </div>
-      <button type="submit">Calculate Route</button>
+      <button type="submit">Find Route</button>
+      <button onClick={openBill}>Calculate Route</button>
     </form>
   );
 };

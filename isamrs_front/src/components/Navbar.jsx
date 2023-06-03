@@ -3,7 +3,7 @@ import './Navbar.css';
 import profile from '../images/profile.png';
 
 const Navbar = ({ role, onRoleUpdate }) => {
-  const isUserLoggedIn = role === 'admin' || role === 'registered';
+  const isUserLoggedIn = role === 'admin' || role === 'driver';
   const navigate = useNavigate();
 
   const handleLogoutClick = () => {
@@ -14,42 +14,48 @@ const Navbar = ({ role, onRoleUpdate }) => {
   return (
     <nav className="navbar">
       <div className="navbar-links">
+        {isUserLoggedIn && (
+          <Link to="/profile">
+            <img src={profile} alt="Profile" className="profile-image" />
+          </Link>
+        )}
         <Link to="/" className="navbar-link">
           <b>Home</b>
         </Link>
-      </div>
-      <div className="navbar-links navbar-links-right">
-        {!isUserLoggedIn && (
+        {isUserLoggedIn && (
           <>
-            <Link to="/register" className="navbar-link">
-              <b>Register</b>
+            {role === 'admin' && (
+              <Link to="/users" className="navbar-link">
+                <b>Users</b>
+              </Link>
+            )}
+            <Link to="/tickets" className="navbar-link">
+              <b>Reservations</b>
             </Link>
-            <Link to="/login" className="navbar-link">
-              <b>Login</b>
-            </Link>
+            {role === 'driver' && (
+              <Link to="/drives" className="navbar-link">
+                <b>History</b>
+              </Link>
+            )}
           </>
         )}
-        {isUserLoggedIn && role === 'admin' && (
-          <Link to="/users" className="navbar-link">
-            <b>Users</b>
-          </Link>
-        )}
-        {isUserLoggedIn && (
-          <Link to="/tickets" className="navbar-link">
-            <b>Tickets</b>
-          </Link>
-        )}
-        {isUserLoggedIn && (
-          <Link to="/profile">
-            <img src={profile} alt="Profile" style={{ width: 50, height: 50 }} />
-          </Link>
-        )}
-        {isUserLoggedIn && (
+      </div>
+      {isUserLoggedIn ? (
+        <div className="navbar-links-right">
           <span className="navbar-link" onClick={handleLogoutClick}>
             Logout
           </span>
-        )}
-      </div>
+        </div>
+      ) : (
+        <div className="navbar-links-right">
+          <Link to="/register" className="navbar-link">
+            <b>Register</b>
+          </Link>
+          <Link to="/login" className="navbar-link">
+            <b>Login</b>
+          </Link>
+        </div>
+      )}
     </nav>
   );
 };

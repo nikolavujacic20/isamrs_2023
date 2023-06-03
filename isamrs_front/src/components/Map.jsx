@@ -3,22 +3,27 @@ import "leaflet/dist/leaflet.css";
 import "leaflet-routing-machine/dist/leaflet-routing-machine.css";
 import "leaflet-routing-machine";
 import React, { useState, useRef } from "react";
-import { MapContainer, TileLayer, Marker, Popup} from "react-leaflet";
+import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import TaxiComponent from "./TaxiComponent";
+import Modal from 'react-modal';
+import './Modal.css';
 
 import MapComponent from "./MapComponent";
 
-const Map = ({startLocation,endLocation}) => {
+const Map = ({ startLocation, endLocation, onRouteInfoUpdate, closestTaxiLocation,  paymentMade }) => {
+
 
   const [rideBegins, setRideBegins] = useState(false);
- 
+
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+
   const handleTaxiArrival = () => {
-    
+
     console.log("TAKSI STIGAO SISE");
     setRideBegins(true);
+    setModalIsOpen(true);
   };
 
- 
 
 
   const containerStyle = {
@@ -57,18 +62,18 @@ const Map = ({startLocation,endLocation}) => {
 
   const taxiRides = [
     {
-      startLocation: [45.2421, 19.7129], // Start location for Taxi 1
-      endLocation: [45.2421, 19.8129], // End location for Taxi 1
+      startLocation: [45.2421, 19.7129],
+      endLocation: [45.2421, 19.8129],
       markerIcon: taxiIcon,
-      simulationDuration: 200// Simulation duration for Taxi 1 in milliseconds
+      simulationDuration: 200
     },
     {
-      startLocation: [45.2453, 19.7399], // Start location for Taxi 2
-      endLocation: [45.2453, 19.8399], // End location for Taxi 2
+      startLocation: [45.2453, 19.7399],
+      endLocation: [45.2453, 19.8399],
       markerIcon: taxiIcon,
-      simulationDuration: 500 // Simulation duration for Taxi 2 in milliseconds
+      simulationDuration: 500
     },
-    // Add more taxi rides as needed...
+
   ];
 
   return (
@@ -76,7 +81,7 @@ const Map = ({startLocation,endLocation}) => {
       <MapContainer center={center} zoom={zoom} style={containerStyle}>
         <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
 
-      
+
 
         {taxiDrivers.map((driver) => (
           <Marker key={driver.id} position={driver.location} icon={taxiIcon}>
@@ -89,29 +94,70 @@ const Map = ({startLocation,endLocation}) => {
             </Popup>
           </Marker>
         ))}
-         {startLocation && endLocation && (
+        {startLocation !== null && endLocation !== null && (
           <MapComponent
             startLocation={startLocation}
             endLocation={endLocation}
-            routingControlRef={routingControlRef}
             markerIcon={markerIcon}
+            onRouteInfoUpdate={onRouteInfoUpdate}
+            routingControlRef={routingControlRef}
             simulationDuration={1000}
+
           />
         )}
 
-{taxiRides.map((taxi, index) => (
-        <TaxiComponent
-          key={index}
-          startLocation={taxi.startLocation}
-          endLocation={taxi.endLocation}
-          markerIcon={taxi.markerIcon}
-          simulationDuration={taxi.simulationDuration}
-          onTaxiArrival={handleTaxiArrival}
-        />
-      ))}
+        {paymentMade && (
+          <TaxiComponent
+            startLocation={closestTaxiLocation}
+            endLocation={startLocation}
+            markerIcon={taxiIcon}
+            simulationDuration={100}
+            onTaxiArrival={handleTaxiArrival}
+          />
+        )}
+
+
+
+        {/*     {taxiRides.map((taxi, index) => (
+          <TaxiComponent
+            key={index}
+            startLocation={taxi.startLocation}
+            endLocation={taxi.endLocation}
+            markerIcon={taxi.markerIcon}
+            simulationDuration={taxi.simulationDuration}
+            onTaxiArrival={handleTaxiArrival}
+          />
+        ))} */}
 
 
       </MapContainer>
+
+    
+      <Modal
+        isOpen={modalIsOpen}
+        onRequestClose={() => setModalIsOpen(false)}
+        contentLabel="Bill Confirmation Modal"
+        overlayClassName="modal-overlay"
+        className="modal-content"
+      >
+        <div className="modal-container">
+          <h2 className="modal-title">DRIVE</h2>
+          <p className="modal-amount">The cost of your drive is   dinars</p>
+          <p className="modal-message">Estimated time of travel:   minutes</p>
+         
+
+          <div className="modal-buttons">
+            <button className="modal-cancel-button" onClick={() => setModalIsOpen(false)}>
+              Cancel
+            </button>
+            <button className="modal-pay-button" onClick={() => setModalIsOpen(false)}>
+              Begin 
+            </button>
+          </div>
+        </div>
+      </Modal>
+
+
     </div>
   );
 };
