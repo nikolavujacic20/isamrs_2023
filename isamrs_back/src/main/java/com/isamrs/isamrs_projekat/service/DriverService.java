@@ -1,9 +1,13 @@
 package com.isamrs.isamrs_projekat.service;
 
+import com.isamrs.isamrs_projekat.dto.DriverDTO;
 import com.isamrs.isamrs_projekat.model.Driver;
+import com.isamrs.isamrs_projekat.model.Vehicle;
 import com.isamrs.isamrs_projekat.repository.DriverRepository;
+import com.isamrs.isamrs_projekat.repository.VehicleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,7 +19,35 @@ public class DriverService {
     @Autowired
     private DriverRepository driverRepository;
 
-    public Driver createDriver(Driver driver) {
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private VehicleRepository vehicleRepository;
+
+    public Driver createDriver(DriverDTO driverDto) {
+        Driver driver = new Driver();
+
+        driver.setId(driverDto.getId());
+        driver.setFirstName(driverDto.getFirstName());
+        driver.setLastName(driverDto.getLastName());
+        driver.setPhoneNumber(driverDto.getPhoneNumber());
+        driver.setAddress(driverDto.getAddress());
+        driver.setEmail(driverDto.getEmail());
+        driver.setPassword(passwordEncoder.encode(driverDto.getPassword()));
+
+        driver.setRides(driverDto.getRides());
+        driver.setWorkingHours(driverDto.getWorkingHours());
+
+        // get the vehicle from the repository using the vehicle id from driverDto
+        Optional<Vehicle> optionalVehicle = vehicleRepository.findById(driverDto.getVehicle().getId());
+
+        if(optionalVehicle.isPresent()) {
+            driver.setVehicle(optionalVehicle.get());
+        } else {
+            driver.setVehicle(null);
+        }
+
         return driverRepository.save(driver);
     }
 

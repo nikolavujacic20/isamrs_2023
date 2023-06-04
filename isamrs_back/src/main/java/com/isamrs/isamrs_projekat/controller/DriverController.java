@@ -1,5 +1,6 @@
 package com.isamrs.isamrs_projekat.controller;
 
+import com.isamrs.isamrs_projekat.dto.DriverDTO;
 import com.isamrs.isamrs_projekat.model.Driver;
 import com.isamrs.isamrs_projekat.service.DriverService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +17,7 @@ public class DriverController {
     private DriverService driverService;
 
     @PostMapping
-    public Driver createDriver(@RequestBody Driver driver) {
+    public Driver createDriver(@RequestBody DriverDTO driver) {
         return driverService.createDriver(driver);
     }
 

@@ -9,3 +9,5 @@ insert into users_authority (user_id, authority_id) values (1, 1);
 insert into users_authority (user_id, authority_id) values (2, 2);
 
 insert into vehicle_type (name, price_per_km) values ('kombi', 300);
+
+insert into working_hours (start_time, end_time) values ('08:00:00', '09:00:00');

@@ -2,10 +2,6 @@ package com.isamrs.isamrs_projekat.controller;
 
 import com.isamrs.isamrs_projekat.model.Vehicle;
 import com.isamrs.isamrs_projekat.repository.VehicleRepository;
-import com.isamrs.isamrs_projekat.service.RegisteredUserService;
-import com.isamrs.isamrs_projekat.service.VehicleService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
