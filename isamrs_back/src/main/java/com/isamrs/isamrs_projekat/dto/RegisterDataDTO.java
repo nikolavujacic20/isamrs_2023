@@ -7,6 +7,10 @@ public class RegisterDataDTO {
     private String email;
     private String password;
 
+    private String address;
+
+    private String phoneNumber;
+
     public RegisterDataDTO() {
         super();
     }
@@ -17,6 +21,16 @@ public class RegisterDataDTO {
         this.email = email;
         this.password = password;
     }
+
+    public RegisterDataDTO(String firstName, String lastName, String email, String password, String address, String phoneNumber) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.password = password;
+        this.address = address;
+        this.phoneNumber = phoneNumber;
+    }
+
     public String getFirstName() {
         return firstName;
     }
@@ -40,6 +54,22 @@ public class RegisterDataDTO {
     }
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 }
 
