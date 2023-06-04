@@ -7,3 +7,5 @@ insert into users (type, email, password, is_active) values ('registered_user','
 
 insert into users_authority (user_id, authority_id) values (1, 1);
 insert into users_authority (user_id, authority_id) values (2, 2);
+
+insert into vehicle_type (name, price_per_km) values ('kombi', 300);
