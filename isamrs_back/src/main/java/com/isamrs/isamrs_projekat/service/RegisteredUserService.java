@@ -47,9 +47,9 @@ public class RegisteredUserService {
 
     }
 
-    public void registerUser(RegisterDataDTO data) throws Exception {
+    public RegisteredUser registerUser(RegisterDataDTO data) throws Exception {
         if(!validate(data)) {
-            return;
+            return null;
         }
 
         RegisteredUser ru = repository.findByEmail(data.getEmail());
@@ -61,13 +61,17 @@ public class RegisteredUserService {
         ruser.setLastName(data.getLastName());
         ruser.setEmail(data.getEmail());
         ruser.setPassword(passwordEncoder.encode(data.getPassword()));
-        ruser.setActive(true);
+        // false until he accepts email
+        ruser.setActive(false);
+        ruser.setAddress(data.getAddress());
+        ruser.setPhoneNumber(data.getPhoneNumber());
         Set<Authority> set = new HashSet<Authority>();
         set.add(authorityRepository.findByRole("ROLE_REGISTERED_USER"));
         ruser.setAuthority(set);
 
-        repository.save(ruser);
+        RegisteredUser savedUser = repository.save(ruser);
 
+        return savedUser;
     }
 
     private boolean validate(RegisterDataDTO data) {

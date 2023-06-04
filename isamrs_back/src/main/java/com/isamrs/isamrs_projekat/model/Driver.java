@@ -1,5 +1,8 @@
 package com.isamrs.isamrs_projekat.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.List;
@@ -11,6 +14,8 @@ public class Driver extends User {
 
     @Lob
     @Column(nullable = true)
+    @JsonInclude(JsonInclude.Include.NON_NULL)  // Ignore this field when it's null
+    @JsonIgnore
     protected byte[] documents;
 
     @OneToMany(mappedBy = "driver")
