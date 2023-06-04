@@ -1,7 +1,9 @@
 package com.isamrs.isamrs_projekat.model;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
@@ -10,6 +12,9 @@ import java.util.Set;
 
 @Entity
 @DiscriminatorValue("DRIVER")
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id")
 public class Driver extends User {
 
     @Lob
