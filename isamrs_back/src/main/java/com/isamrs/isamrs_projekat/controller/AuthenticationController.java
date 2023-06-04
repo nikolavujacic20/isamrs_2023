@@ -1,14 +1,17 @@
 package com.isamrs.isamrs_projekat.controller;
 
+import com.isamrs.isamrs_projekat.dto.EmailEvent;
 import com.isamrs.isamrs_projekat.dto.RegisterDataDTO;
 import com.isamrs.isamrs_projekat.dto.UserLoginDTO;
 import com.isamrs.isamrs_projekat.dto.UserTokenStateDTO;
+import com.isamrs.isamrs_projekat.model.RegisteredUser;
 import com.isamrs.isamrs_projekat.model.User;
 import com.isamrs.isamrs_projekat.repository.UserRepository;
 import com.isamrs.isamrs_projekat.security.TokenUtils;
 import com.isamrs.isamrs_projekat.service.CustomUserDetailsService;
 import com.isamrs.isamrs_projekat.service.RegisteredUserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -43,6 +46,9 @@ public class AuthenticationController {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    ApplicationEventPublisher eventPublisher;
 
 
     // Prvi endpoint koji pogadja korisnik kada se loguje.
@@ -88,10 +94,17 @@ public class AuthenticationController {
     }
 
     @RequestMapping(value = "/sign-up", method = RequestMethod.POST)
-    public ResponseEntity<?> signUp(@RequestBody RegisterDataDTO data) throws Exception {
-        regUserService.registerUser(data);
+    public ResponseEntity<RegisteredUser> signUp(@RequestBody RegisterDataDTO data, HttpServletRequest request) throws Exception {
+        RegisteredUser savedUser = regUserService.registerUser(data);
 
-        return new ResponseEntity<>(HttpStatus.OK);
+
+        String confirmationUrl =  "http://localhost:8080/confirmRegistration/" + savedUser.getId() ;
+        String content = savedUser.getFirstName() + ", verify your account " +
+                "\r\n" + confirmationUrl +
+                "\r\n\r\nThis link will be active for only 24 hours.";
+        String[] sendTo = {savedUser.getEmail()};
+        eventPublisher.publishEvent(new EmailEvent(savedUser, "Confirm registration", content, sendTo));
+        return new ResponseEntity<>(savedUser, HttpStatus.OK);
     }
 
 
