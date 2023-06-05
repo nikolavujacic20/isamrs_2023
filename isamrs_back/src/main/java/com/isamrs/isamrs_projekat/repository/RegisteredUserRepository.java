@@ -16,7 +16,8 @@ public interface RegisteredUserRepository extends JpaRepository<RegisteredUser, 
 
     RegisteredUser findByEmail(String email);
 
-    @Query(value = "SELECT * FROM USERS WHERE TYPE = 'registered_user' AND ISACTIVE = TRUE", nativeQuery = true)
+//     @Query(value = "SELECT * FROM USERS WHERE TYPE = 'registered_user' AND IS_ACTIVE = TRUE", nativeQuery = true)
+    @Query(value = "SELECT * FROM USERS", nativeQuery = true)
     List<RegisteredUser> findAllRegisteredUser();
 
     Optional<RegisteredUser> findByIdAndIsActive(Long id, boolean b);

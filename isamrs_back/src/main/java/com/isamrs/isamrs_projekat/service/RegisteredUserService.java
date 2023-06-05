@@ -8,6 +8,7 @@ import com.isamrs.isamrs_projekat.repository.RegisteredUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashSet;
 import java.util.List;
@@ -90,6 +91,17 @@ public class RegisteredUserService {
             return false;
 
         return true;
+    }
+
+    @Transactional
+    public RegisteredUser updateUser(Long id, RegisterDataDTO u) {
+        RegisteredUser toModify = repository.findById(id).orElse(null);
+        toModify.setAddress(u.getAddress());
+        toModify.setPhoneNumber(u.getPhoneNumber());
+        toModify.setFirstName(u.getFirstName());
+        toModify.setLastName(u.getLastName());
+        toModify.setEmail(u.getEmail());
+        return repository.save(toModify);
     }
 }
 

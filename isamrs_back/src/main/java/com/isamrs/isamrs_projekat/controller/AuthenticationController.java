@@ -19,13 +19,11 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 
 //Kontroler zaduzen za autentifikaciju korisnika
@@ -105,6 +103,42 @@ public class AuthenticationController {
         String[] sendTo = {savedUser.getEmail()};
         eventPublisher.publishEvent(new EmailEvent(savedUser, "Confirm registration", content, sendTo));
         return new ResponseEntity<>(savedUser, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/user/{id}", method = RequestMethod.PUT)
+    public ResponseEntity<RegisteredUser> updateUser(@PathVariable Long id, @RequestBody RegisterDataDTO modified,
+                                                     HttpServletRequest request) throws Exception {
+        RegisteredUser updated;
+
+        try {
+            updated = regUserService.updateUser(id, modified);
+        } catch(Exception e) {
+            return new ResponseEntity<>(HttpStatus.CONFLICT);
+        }
+        if (updated == null) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(updated, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/user/{id}", method = RequestMethod.GET)
+    public ResponseEntity<RegisteredUser> getUser(@PathVariable Long id, HttpServletRequest request) throws Exception {
+        RegisteredUser user = regUserService.findOne(id);
+
+        if (user == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        return new ResponseEntity<>(user, HttpStatus.OK);
+    }
+
+
+    @RequestMapping(value = "/user", method = RequestMethod.GET)
+    public ResponseEntity<List<RegisteredUser>> getAllUsers(HttpServletRequest request) throws Exception {
+        List<RegisteredUser> users = regUserService.findAll();
+
+        if (users == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(users, HttpStatus.OK);
     }
 
 
