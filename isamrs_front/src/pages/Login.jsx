@@ -42,7 +42,7 @@ function Login({ onRoleUpdate }) {
         navigate('/users');
       } else {
         localStorage.setItem('role', 'registered');
-        onRoleUpdate("registered");
+        onRoleUpdate("driver");
         navigate('/');
       }
     } catch (error) {

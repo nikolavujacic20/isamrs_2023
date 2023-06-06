@@ -7,23 +7,48 @@ import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import TaxiComponent from "./TaxiComponent";
 import Modal from 'react-modal';
 import './Modal.css';
-
+import TaxiSim from "./TaxiSim";
 import MapComponent from "./MapComponent";
 
-const Map = ({ startLocation, endLocation, onRouteInfoUpdate, closestTaxiLocation,  paymentMade }) => {
+const Map = ({ startLocation, endLocation, onRouteInfoUpdate, closestTaxiLocation, paymentMade, taxiDrivers, rideBegins }) => {
 
+  const [taxiLocations, setTaxiLocations] = useState([]);
 
-  const [rideBegins, setRideBegins] = useState(false);
+  const [rideApproved, setRideApproved] = useState(false);
 
   const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [modalIsOpen1, setModalIsOpen1] = useState(false);
 
   const handleTaxiArrival = () => {
 
-    console.log("TAKSI STIGAO SISE");
-    setRideBegins(true);
+
+
     setModalIsOpen(true);
   };
 
+
+  const handleTaxiOver = () => {
+
+
+
+    setModalIsOpen1(true);
+  };
+
+
+
+  const handleBegin = () => {
+    setModalIsOpen(false);
+    setRideApproved(true);
+  };
+
+
+  const handleEnd = () => {
+    setModalIsOpen1(false)
+    setRideApproved(true);
+    const rideStringified = localStorage.getItem('ride');
+    const ride = JSON.parse(rideStringified);
+    console.log(ride);
+  };
 
 
   const containerStyle = {
@@ -47,34 +72,21 @@ const Map = ({ startLocation, endLocation, onRouteInfoUpdate, closestTaxiLocatio
   });
 
 
-  const taxiDrivers = [
-    { id: 1, name: "Nikola Vujacic", location: [45.2421, 19.7129] },
-    { id: 2, name: "Driver 2", location: [45.2453, 19.7399] },
-  ];
+
 
   const center = [45.2396, 19.8207];
+  const simLocation = [45.2547, 19.862];
   const zoom = 13;
 
 
   const routingControlRef = useRef(null);
 
+  const handleLocationUpdate = (location) => {
 
+    setTaxiLocations((prevLocations) => [...prevLocations, location]);
+    console.log(taxiLocations);
+  };
 
-  const taxiRides = [
-    {
-      startLocation: [45.2421, 19.7129],
-      endLocation: [45.2421, 19.8129],
-      markerIcon: taxiIcon,
-      simulationDuration: 200
-    },
-    {
-      startLocation: [45.2453, 19.7399],
-      endLocation: [45.2453, 19.8399],
-      markerIcon: taxiIcon,
-      simulationDuration: 500
-    },
-
-  ];
 
   return (
     <div>
@@ -83,17 +95,7 @@ const Map = ({ startLocation, endLocation, onRouteInfoUpdate, closestTaxiLocatio
 
 
 
-        {taxiDrivers.map((driver) => (
-          <Marker key={driver.id} position={driver.location} icon={taxiIcon}>
-            <Popup>
-              <div>
-                <h4>{driver.name}</h4>
-                <p>Latitude: {driver.location[0]}</p>
-                <p>Longitude: {driver.location[1]}</p>
-              </div>
-            </Popup>
-          </Marker>
-        ))}
+
         {startLocation !== null && endLocation !== null && (
           <MapComponent
             startLocation={startLocation}
@@ -118,21 +120,35 @@ const Map = ({ startLocation, endLocation, onRouteInfoUpdate, closestTaxiLocatio
 
 
 
-        {/*     {taxiRides.map((taxi, index) => (
+        {rideApproved && (
           <TaxiComponent
-            key={index}
-            startLocation={taxi.startLocation}
-            endLocation={taxi.endLocation}
-            markerIcon={taxi.markerIcon}
-            simulationDuration={taxi.simulationDuration}
-            onTaxiArrival={handleTaxiArrival}
+            startLocation={startLocation}
+            endLocation={endLocation}
+            markerIcon={taxiIcon}
+            simulationDuration={200}
+            onTaxiArrival={handleTaxiOver}
           />
-        ))} */}
+        )}
+
+
+
+        {(rideApproved !== true) && (rideBegins !== true) && taxiDrivers.map((taxi, index) => (
+          <TaxiSim
+            key={index}
+            startLocation={taxi.location}
+            endLocation={simLocation}
+            markerIcon={taxiIcon}
+            simulationDuration={1000}
+            taxiName={taxi.name}
+            taxiStatus={taxi.state}
+
+          />
+        ))}
 
 
       </MapContainer>
 
-    
+
       <Modal
         isOpen={modalIsOpen}
         onRequestClose={() => setModalIsOpen(false)}
@@ -142,18 +158,41 @@ const Map = ({ startLocation, endLocation, onRouteInfoUpdate, closestTaxiLocatio
       >
         <div className="modal-container">
           <h2 className="modal-title">DRIVE</h2>
-          <p className="modal-amount">The cost of your drive is   dinars</p>
-          <p className="modal-message">Estimated time of travel:   minutes</p>
-         
+          <p className="modal-amount">Your Taxi has arrived !!!</p>
+
+
 
           <div className="modal-buttons">
             <button className="modal-cancel-button" onClick={() => setModalIsOpen(false)}>
               Cancel
             </button>
-            <button className="modal-pay-button" onClick={() => setModalIsOpen(false)}>
-              Begin 
+            <button className="modal-pay-button" onClick={handleBegin}>
+              Begin
             </button>
           </div>
+        </div>
+      </Modal>
+
+
+      <Modal
+        isOpen={modalIsOpen1}
+        onRequestClose={() => setModalIsOpen1(false)}
+        contentLabel="Bill Confirmation Modal"
+        overlayClassName="modal-overlay"
+        className="modal-content"
+      >
+        <div className="modal-container">
+          <h2 className="modal-title">DRIVE</h2>
+          <p className="modal-amount">Your reached your destination!!!</p>
+
+
+
+          {<div className="modal-buttons">
+
+            <button className="modal-pay-button" onClick={handleEnd}>
+              Done
+            </button>
+          </div>}
         </div>
       </Modal>
 

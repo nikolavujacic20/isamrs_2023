@@ -5,14 +5,14 @@ import React, { useEffect, useState, useRef } from "react";
 import { useMap } from "react-leaflet";
 import { Marker, Popup } from "react-leaflet";
 
-const TaxiComponent = ({
+const TaxiSim = ({
   startLocation,
   endLocation,
   markerIcon,
   simulationDuration,
-  onTaxiArrival,
   taxiName,
-  taxiStatus
+  taxiStatus,
+  onLocationUpdate
 }) => {
   const map = useMap();
   const [distance, setDistance] = useState(null);
@@ -73,7 +73,7 @@ const TaxiComponent = ({
     const interval = setInterval(() => {
       if (currentPositionIndex >= totalPositions) {
         clearInterval(interval);
-        onTaxiArrival();
+       
         return;
       }
 
@@ -99,11 +99,11 @@ const TaxiComponent = ({
         <Popup>
           <p><strong>Driver: {taxiName} </strong></p>
           <p><strong>Status: {taxiStatus}</strong></p>
-          <button></button>
+          <button>HELLo</button>
         </Popup>
       </Marker>
     </div>
   );
 };
 
-export default TaxiComponent;
+export default TaxiSim;

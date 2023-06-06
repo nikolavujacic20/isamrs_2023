@@ -5,7 +5,7 @@ import React, { useEffect, useState, useRef } from "react";
 import { useMap } from "react-leaflet";
 import { Marker, Popup } from "react-leaflet";
 
-const TaxiComponent = ({
+const TaxiArrived = ({
   startLocation,
   endLocation,
   markerIcon,
@@ -106,4 +106,4 @@ const TaxiComponent = ({
   );
 };
 
-export default TaxiComponent;
+export default TaxiArrived;

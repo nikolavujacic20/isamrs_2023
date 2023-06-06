@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-//import userRegister from "../services/userRegister";
+import userRegister from "../services/userRegister";
 import './Register.css';
 
 function Register() {
@@ -23,10 +23,10 @@ function Register() {
         }
 
         try {
-            // Perform registration logic using userRegister service
-            //const response = await userRegister(email, password, name, surname, city, phone);
-            //console.log(response.data);
-            // Handle successful registration
+            
+            const response = await userRegister(email, password, name, surname, city, phone);
+            console.log(response.data);
+          
             //navigate('/login');
         } catch (error) {
             console.log(error);

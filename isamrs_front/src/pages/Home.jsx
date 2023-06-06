@@ -4,6 +4,7 @@ import Map from '../components/Map';
 import RouteForm from '../components/RouteForm';
 import Modal from 'react-modal';
 import TaxiFinder from '../components/TaxiFinder';
+import getAllDrivers from '../services/getAllDrivers';
 Modal.setAppElement('#root');
 
 const Home = () => {
@@ -15,6 +16,9 @@ const Home = () => {
 
   const [taxiLocations, setTaxiLocations] = useState([]);
   const [closestTaxi, setClosestTaxi] = useState(null);
+
+  const [rideBegins, setRideBegins] = useState([]);
+
 
 
   const [paymentMade, setPaymentMade] = useState(false);
@@ -50,10 +54,19 @@ const Home = () => {
     setModalIsOpen(false);
   };
 
-  const handlePay = () => {
+  const handlePay = async () => {
     setModalIsOpen(false);
-    setPaymentMade(true);
+    
+    setPaymentMade(true); //OVO TREBA DA SE POSTAVI NA TRUE KADA TAKSISTA PRIHVATI
+    setRideBegins(true);
 
+    /*  try {
+       const drivers = await getAllDrivers();
+       console.log(drivers); 
+     } catch (error) {
+       console.error(error);
+     }
+  */
   };
 
   const handleRouteSubmit = (startCoordinates, endCoordinates) => {
@@ -61,24 +74,44 @@ const Home = () => {
     setEndLocation(endCoordinates);
   };
 
+  const [taxiDrivers, setTaxiDrivers] = useState([
+    { id: 1, name: "Nikola Vujacic", location: [45.2640, 19.8447], state: 'available', vehcicleType: 'caravan' },
+    { id: 2, name: "Slobodan Zelic", location: [45.2567, 19.8110], state: 'available', vehcicleType: 'car' },
+    { id: 3, name: "Marko Markovic", location: [45.2394, 19.8234], state: 'available', vehcicleType: 'car' },
+    { id: 4, name: "Janko Jankovic", location: [45.2229, 19.8071], state: 'available', vehcicleType: 'bus' },
+    { id: 5, name: "Petar Petrovic", location: [45.2415, 19.8327], state: 'available', vehcicleType: 'caravan' },
+  ]);
+
 
   const [durationTaxi, setDurationTaxi] = useState(null);
 
+  let ride = {};
   const handleTaxiUpdate = (taxi) => {
     setClosestTaxi(taxi);
-    if (taxi !== null) {console.log(taxi.location);
-    console.log(taxi.id);}
-   
-   
+    if (taxi!=null){
+     ride = { driverName: taxi.name, id:taxi.id,
+      price: '420'
+    }
+  }
+    const rideStringified = JSON.stringify(ride);
+    localStorage.setItem('closest', taxi);
+    localStorage.setItem('ride',rideStringified);
+    if (taxi !== null) {
+      console.log(taxi.location);
+      console.log(taxi.id);
+      console.log(taxi);
+    }
+
+
   };
 
   const handleDurationUpdate = (newDuration) => {
     setDurationTaxi(newDuration);
-    
+
 
   };
 
-  const startLocation1 = [45.2421, 19.7129];
+  const startLocation1 = [45.2568, 19.8185];
 
 
   return (
@@ -87,8 +120,8 @@ const Home = () => {
       {<div>
         <h1>Taxi Finder</h1>
         <TaxiFinder
-          taxiLocations={taxiLocations}
-          startLocation={startLocation1}
+          taxiLocations={taxiDrivers}
+          startLocation={startLocation}
           onTaxiUpdate={handleTaxiUpdate}
           onDurationUpdate={handleDurationUpdate}
         />
@@ -99,12 +132,14 @@ const Home = () => {
 
       <RouteForm onRouteSubmit={handleRouteSubmit} openBill={handleOpenModal} />
 
-      {startLocation !== null && endLocation !== null && closestTaxi !==null && (
-        <Map startLocation={startLocation} 
-        endLocation={endLocation} 
-        onRouteInfoUpdate={handleRouteInfoUpdate} 
-        closestTaxiLocation= {closestTaxi.location}
-        paymentMade={paymentMade} />
+      {startLocation !== null && endLocation !== null && closestTaxi !== null && (
+        <Map startLocation={startLocation}
+          endLocation={endLocation}
+          onRouteInfoUpdate={handleRouteInfoUpdate}
+          closestTaxiLocation={closestTaxi.location}
+          taxiDrivers={taxiDrivers}
+          paymentMade={paymentMade}
+          rideBegins={rideBegins} />
       )}
 
       <Modal
@@ -125,7 +160,7 @@ const Home = () => {
               Cancel
             </button>
             <button className="modal-pay-button" onClick={handlePay}>
-              Pay
+              Reserve
             </button>
           </div>
         </div>
